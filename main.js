@@ -24,6 +24,13 @@ function modelLoaded() {
     console.log("Model Loaded");
 }
 
+function speak() {
+    var synth = window.speechSynthesis;
+    speak_data = "The meaning of this emoji is  " + Prediction;
+    var utterThis = new SpeechSynthesisUtterance(speak_data);
+    synth.speak(utterThis)
+}
+
 function check() {
     img = document.getElementById("captured_image");
     classifier.classify(img, gotResults);
@@ -37,6 +44,7 @@ function gotResults(error, results) {
     else {
         console.log(results);
         document.getElementById("result_emoji_meaning").innerHTML = results[0].label;
+        Prediction = results[0].label;
         speak();
 
         if(results[0].label=="Amazing") {
